@@ -1,0 +1,17 @@
+subprojects {
+    apply plugin: 'java-library'
+
+    project.version = project(':client').version
+
+    java {
+        withSourcesJar()
+    }
+
+    compileJava {
+        options.release.set(21)
+    }
+
+    sourcesJar {
+        manifest = jar.manifest
+    }
+}

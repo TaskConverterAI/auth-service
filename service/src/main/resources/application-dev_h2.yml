@@ -1,0 +1,27 @@
+app:
+  jwt:
+    secret-key: .xApv..heZ38sOGSea/w#7od.B\2e0jMs]t4+6vrx0%3Jy`zbwMu8RO3g\1c+%LUVidYz@irdRE=Bxy-8Qmn@4*&2T1I>%xZ[~*P
+    leeway: 5
+    access-token-expiration: 2m
+    refresh-token-expiration: 1h
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+server:
+  port: 8090

@@ -1,0 +1,33 @@
+[versions]
+spring-boot = "3.5.6"
+lombok = "9.0.0"
+mapstruct = "1.6.2"
+auth0-jwt = "4.5.0"
+postgresql = "42.7.2"
+h2 = "2.4.240"
+
+[plugins]
+java = { id = "java" }
+application = { id = "application" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+lombok = { id = "io.freefair.lombok", version.ref = "lombok"}
+
+[libraries]
+# Spring Boot
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot" }
+spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
+
+# Database drivers
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+
+# MapStruct
+mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
+
+# Security
+auth0-jwt = { module = "com.auth0:java-jwt", version.ref = "auth0-jwt" }
+bcrypt = { module = "at.favre.lib:bcrypt", version = "0.10.2" }
+

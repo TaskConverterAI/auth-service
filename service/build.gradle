@@ -1,0 +1,37 @@
+plugins {
+    alias(libs.plugins.java)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.application)
+}
+
+compileJava {
+    options.compilerArgs += ['-Amapstruct.defaultComponentModel=spring']
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+dependencies {
+    implementation project(":client:client")
+
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.validation
+    implementation libs.spring.boot.starter.data.jpa
+
+    implementation libs.postgresql
+    implementation libs.h2
+
+    implementation libs.auth0.jwt
+    implementation libs.bcrypt
+
+    implementation libs.mapstruct
+    annotationProcessor libs.mapstruct.processor
+}
+
+test {
+    useJUnitPlatform()
+}
