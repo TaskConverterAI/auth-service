@@ -2,7 +2,6 @@ package ru.tcai.auth.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +14,9 @@ import ru.tcai.auth.api.dto.request.InvalidateSessionRequest;
 import ru.tcai.auth.api.dto.request.LoginRequest;
 import ru.tcai.auth.api.dto.request.RefreshAccessTokenRequest;
 import ru.tcai.auth.api.dto.request.RegistrationRequest;
+import ru.tcai.auth.api.dto.response.AccessTokenResponse;
 import ru.tcai.auth.api.dto.response.DecodedTokenResponse;
-import ru.tcai.auth.api.dto.response.TokenResponse;
+import ru.tcai.auth.api.dto.response.TokensResponse;
 import ru.tcai.auth.core.service.AuthService;
 import ru.tcai.auth.core.service.JwtService;
 import ru.tcai.auth.core.service.SessionService;
@@ -37,18 +37,18 @@ public class AuthController {
     private final SessionService sessionService;
 
     @PostMapping(ApiPaths.REGISTER)
-    public ResponseEntity<Void> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+    public ResponseEntity<TokensResponse> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         userService.registerUser(registrationRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok(authService.authenticate(registrationRequest));
     }
 
     @PostMapping(ApiPaths.LOGIN)
-    public ResponseEntity<TokenResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+    public ResponseEntity<TokensResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         return ResponseEntity.ok(authService.authenticate(loginRequest));
     }
 
     @PostMapping(ApiPaths.REFRESH)
-    public ResponseEntity<TokenResponse> refreshToken(@RequestBody @Valid RefreshAccessTokenRequest request) {
+    public ResponseEntity<AccessTokenResponse> refreshToken(@RequestBody @Valid RefreshAccessTokenRequest request) {
         return ResponseEntity.ok(authService.refreshToken(request));
     }
 

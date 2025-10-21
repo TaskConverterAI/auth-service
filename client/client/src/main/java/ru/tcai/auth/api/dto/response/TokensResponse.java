@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Builder
 @Value
-public class TokenResponse {
+public class TokensResponse {
 
     String accessToken;
 

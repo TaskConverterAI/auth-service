@@ -8,7 +8,7 @@ import ru.tcai.auth.api.dto.request.LoginRequest;
 import ru.tcai.auth.api.dto.request.RefreshAccessTokenRequest;
 import ru.tcai.auth.api.dto.request.RegistrationRequest;
 import ru.tcai.auth.api.dto.response.DecodedTokenResponse;
-import ru.tcai.auth.api.dto.response.TokenResponse;
+import ru.tcai.auth.api.dto.response.TokensResponse;
 
 import static ru.tcai.auth.api.ApiPaths.DECODE;
 import static ru.tcai.auth.api.ApiPaths.LOGIN;
@@ -23,10 +23,10 @@ public interface AuthRestClient {
     void register(@RequestBody RegistrationRequest request);
 
     @PostExchange(ROOT_AUTH + LOGIN)
-    TokenResponse login(@RequestBody LoginRequest loginRequest);
+    TokensResponse login(@RequestBody LoginRequest loginRequest);
 
     @PostExchange(ROOT_AUTH + REFRESH)
-    TokenResponse refresh(@RequestBody RefreshAccessTokenRequest request);
+    TokensResponse refresh(@RequestBody RefreshAccessTokenRequest request);
 
     @PostExchange(ROOT_AUTH + LOGOUT)
     void logout(@RequestBody InvalidateSessionRequest request);

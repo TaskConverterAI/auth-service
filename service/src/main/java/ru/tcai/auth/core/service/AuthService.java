@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import ru.tcai.auth.api.dto.request.LoginRequest;
 import ru.tcai.auth.api.dto.request.RefreshAccessTokenRequest;
-import ru.tcai.auth.api.dto.response.TokenResponse;
+import ru.tcai.auth.api.dto.request.RegistrationRequest;
+import ru.tcai.auth.api.dto.response.AccessTokenResponse;
+import ru.tcai.auth.api.dto.response.TokensResponse;
 import ru.tcai.auth.core.dao.SessionDao;
 import ru.tcai.auth.core.dao.UserDao;
 import ru.tcai.auth.core.entity.Session;
@@ -28,7 +30,7 @@ public class AuthService {
 
     private final SessionService sessionService;
 
-    public TokenResponse authenticate(LoginRequest loginRequest) {
+    public TokensResponse authenticate(LoginRequest loginRequest) {
         User user = userDao.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail())
                 .filter(u -> passwordService.matches(loginRequest.getPassword(), u.getPassword()))
                 .orElseThrow(() -> new AuthServiceException("Bad username/email or password", HttpStatus.UNAUTHORIZED));
@@ -39,10 +41,19 @@ public class AuthService {
                 .map(Session::getRefreshToken)
                 .orElseGet(() -> sessionService.createSession(user));
 
-        return TokenResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
+        return TokensResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
     }
 
-    public TokenResponse refreshToken(RefreshAccessTokenRequest request) {
+    public TokensResponse authenticate(RegistrationRequest registrationRequest) {
+        return authenticate(
+                LoginRequest.builder()
+                        .usernameOrEmail(registrationRequest.getUsername())
+                        .password(registrationRequest.getPassword())
+                        .build()
+        );
+    }
+
+    public AccessTokenResponse refreshToken(RefreshAccessTokenRequest request) {
         sessionService.isSessionActive(request.getRefreshToken());
 
         sessionService.prolongateSession(request.getRefreshToken());
@@ -53,7 +64,7 @@ public class AuthService {
 
         String accessToken = jwtService.generateAccessToken(user);
 
-        return TokenResponse.builder().accessToken(accessToken).refreshToken(request.getRefreshToken()).build();
+        return AccessTokenResponse.builder().accessToken(accessToken).build();
     }
 
 }
