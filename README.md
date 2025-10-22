@@ -1,5 +1,10 @@
 ## Инструкция к запуску auth-service
 
+### Технологии:
+
+- Java 21
+- Gradle 7+
+
 ### Локальный запуск с in-memory database h2
 
 1. Соберите bootJar: 
