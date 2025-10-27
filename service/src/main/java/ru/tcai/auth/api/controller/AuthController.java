@@ -24,7 +24,7 @@ import ru.tcai.auth.core.service.UserService;
 
 @Validated
 @RestController
-@RequestMapping(ApiPaths.ROOT_AUTH)
+@RequestMapping
 @RequiredArgsConstructor
 public class AuthController {
 
