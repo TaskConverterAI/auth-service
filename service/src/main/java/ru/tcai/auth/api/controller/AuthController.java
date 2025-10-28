@@ -39,7 +39,7 @@ public class AuthController {
     @PostMapping(ApiPaths.REGISTER)
     public ResponseEntity<TokensResponse> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
         userService.registerUser(registrationRequest);
-        return ResponseEntity.ok(authService.authenticate(registrationRequest));
+        return ResponseEntity.status(201).body(authService.authenticate(registrationRequest));
     }
 
     @PostMapping(ApiPaths.LOGIN)
