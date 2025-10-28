@@ -19,7 +19,7 @@ def unique_user_data():
 def registered_user(base_url, unique_user_data):
     """Registers new user and returns it with tokens"""
     response = requests.post(base_url + ENDPOINT_AUTH_REGISTER, json=unique_user_data)
-    assert response.status_code == 200
+    assert response.status_code == 201
     data = response.json()
 
     return {
@@ -32,25 +32,26 @@ class TestAuthRegister:
     def test_successful_registration(self, base_url, unique_user_data):
         response = requests.post(base_url + ENDPOINT_AUTH_REGISTER, json=unique_user_data)
 
-        assert response.status_code == 200
+        assert response.status_code == 201
         data = response.json()
         assert "accessToken" in data
         assert "refreshToken" in data
         assert data["accessToken"] is not None
         assert data["refreshToken"] is not None
+
     def test_registration_duplicate_email(self, base_url, registered_user, unique_user_data):
         duplicate_data = unique_user_data
         duplicate_data["email"] = registered_user["userData"]["email"]
         response = requests.post(base_url + ENDPOINT_AUTH_REGISTER, json=duplicate_data)
 
-        assert response.status_code == 409
+        assert response.status_code == 400
 
     def test_registration_duplicate_username(self, base_url, registered_user, unique_user_data):
         duplicate_data = unique_user_data
         duplicate_data["username"] = registered_user["userData"]["username"]
         response = requests.post(base_url + ENDPOINT_AUTH_REGISTER, json=duplicate_data)
 
-        assert response.status_code == 409
+        assert response.status_code == 400
 
     @pytest.mark.parametrize("field,invalid_value", [
         ("username", ""),
