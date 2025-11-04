@@ -13,4 +13,4 @@ spring:
     url: jdbc:postgresql://localhost:5433/${PG_DB_NAME}
 
 server:
-  port: 8090
+  port: 8081

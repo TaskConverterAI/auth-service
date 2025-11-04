@@ -18,10 +18,10 @@
 java -jar  service/build/libs/service-1.0.0.jar --spring.profiles.active=dev_h2
 ```
 
-- Консоль БД доступна по url: http://localhost:8090/h2-console
-- API доступно по base path: http://localhost:8090/auth
+- Консоль БД доступна по url: http://localhost:8081/h2-console
+- API доступно по base path: http://localhost:8081/auth
 
 ### Запуск функциональных тестов
  ```bash
- pytest -v --base-url http://localhost:8090 test/auth/test-register.py
+ pytest -v --base-url http://localhost:8081 test/auth/test-register.py
  ```
