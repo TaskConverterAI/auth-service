@@ -23,5 +23,5 @@ java -jar  service/build/libs/service-1.0.0.jar --spring.profiles.active=dev_h2
 
 ### Запуск функциональных тестов
  ```bash
- pytest -v --base-url http://localhost:8081 test/auth/test-register.py
+ cd test; pytest -v --base-url http://localhost:8081
  ```

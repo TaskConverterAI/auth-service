@@ -1,4 +1,4 @@
-from conftest import *
+from .conftest import *
 
 class TestAuthRefresh:
     def test_successful_token_refresh(self, base_url, registered_authorized_user):
