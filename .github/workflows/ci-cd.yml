@@ -34,6 +34,9 @@ jobs:
             ${{ runner.os }}-gradle-
 
       # 4. Сборка и тестирование проекта
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
       - name: Build and test with Gradle
         run: ./gradlew clean build --no-daemon
 
