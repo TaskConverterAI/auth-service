@@ -5,8 +5,12 @@
 - Java 21
 - Gradle 7+
 
-### Локальный запуск с in-memory database h2
+### Локальный запуск контейнера
+```bash
+bash run.sh
+```
 
+### Локальный запуск с in-memory database h2
 1. Соберите bootJar: 
 ```bash
 .\gradlew :service:bootJar

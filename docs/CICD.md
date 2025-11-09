@@ -10,6 +10,4 @@
 ## CD (Continuous Deployment)
 
 1. Собирается Docker-образ (из Dockerfile);
-2. Заливается в Docker Hub или GitHub Container Registry;
-
 [TODO] деплоится на staging или production сервер.
