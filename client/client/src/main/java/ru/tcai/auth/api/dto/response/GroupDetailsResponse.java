@@ -16,5 +16,6 @@ public class GroupDetailsResponse {
     Long ownerId;
     Instant createdAt;
     String userRole;
+    Integer memberNumber;
     List<GroupMemberResponse> members;
 }
