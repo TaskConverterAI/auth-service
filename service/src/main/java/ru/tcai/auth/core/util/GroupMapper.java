@@ -49,7 +49,7 @@ public class GroupMapper {
                 .createdAt(group.getCreatedAt())
                 .members(members)
                 .userRole(role)
-                .memberNumber(members.size())
+                .memberCount(members.size())
                 .build();
     }
 
