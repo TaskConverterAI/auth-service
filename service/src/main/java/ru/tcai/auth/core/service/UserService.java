@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tcai.auth.api.dto.request.RegistrationRequest;
+import ru.tcai.auth.api.dto.response.GroupMemberResponse;
 import ru.tcai.auth.core.dao.UserDao;
 import ru.tcai.auth.core.entity.User;
 
@@ -28,4 +29,19 @@ public class UserService {
 
         userDao.save(user);
     }
+
+    @Transactional(readOnly = true)
+    public GroupMemberResponse getUser(Long memberId) {
+        return userDao.findById(memberId)
+                .map(user ->
+                        GroupMemberResponse.builder()
+                                .userId(user.getId())
+                                .email(user.getEmail())
+                                .role(user.getRole())
+                                .username(user.getUsername())
+                                .build()
+                )
+                .orElseThrow(() -> new IllegalArgumentException("couldn't find user with such id"));
+    }
+
 }

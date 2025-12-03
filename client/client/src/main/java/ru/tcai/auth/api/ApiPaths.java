@@ -22,6 +22,7 @@ public class ApiPaths {
     public static final String DELETE_GROUP = ROOT_GROUPS + "/{groupId}";
 
     public static final String ADD_MEMBER = ROOT_GROUPS + "/{groupId}/members";
+    public static final String GET_MEMBER = ROOT_GROUPS + "/members/{memberId}";
     public static final String REMOVE_MEMBER = ROOT_GROUPS + "/{groupId}/members/{userId}";
     public static final String LEAVE_GROUP = ROOT_GROUPS + "/{groupId}/leave";
 }

@@ -14,6 +14,7 @@ import ru.tcai.auth.api.dto.response.GroupResponse;
 import ru.tcai.auth.api.dto.response.GroupSummaryResponse;
 import ru.tcai.auth.api.dto.response.OwnershipTransferResponse;
 import ru.tcai.auth.core.service.GroupService;
+import ru.tcai.auth.core.service.UserService;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class GroupController {
 
     private final GroupService groupService;
+    private final UserService userService;
 
     @PostMapping(ApiPaths.CREATE_GROUP)
     public ResponseEntity<GroupResponse> createGroup(@RequestBody CreateGroupRequest request) {
@@ -71,4 +73,11 @@ public class GroupController {
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.ok(response);
     }
+
+    @PostMapping(ApiPaths.GET_MEMBER)
+    public ResponseEntity<GroupMemberResponse> getMemberInfo(@PathVariable Long memberId) {
+        GroupMemberResponse response = userService.getUser(memberId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 }
