@@ -45,7 +45,6 @@ def registered_unauthorized_user(base_url, registered_authorized_user):
         "username": registered_authorized_user["username"],
         "email": registered_authorized_user["email"],
         "password": registered_authorized_user["password"],
-        "userId": registered_authorized_user["userId"]
     }
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 import pytest
 import requests
-from conftest import (
+from .conftest import (
     ENDPOINT_GROUP_MEMBERS,
     ENDPOINT_GROUP_MEMBER_BY_ID,
     ENDPOINT_MEMBER_INFO,
