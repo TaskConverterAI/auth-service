@@ -74,7 +74,7 @@ public class GroupController {
                 : ResponseEntity.ok(response);
     }
 
-    @PostMapping(ApiPaths.GET_MEMBER)
+    @GetMapping(ApiPaths.GET_MEMBER)
     public ResponseEntity<GroupMemberResponse> getMemberInfo(@PathVariable Long memberId) {
         GroupMemberResponse response = userService.getUser(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
