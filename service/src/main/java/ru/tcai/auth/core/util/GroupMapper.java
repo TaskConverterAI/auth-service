@@ -35,7 +35,7 @@ public class GroupMapper {
 
     public static GroupDetailsResponse toGroupDetailsResponse(Group group, Long currentUserId) {
         List<GroupMemberResponse> members = group.getMembers().stream()
-                .map(GroupMapper::toGroupMemberResponse)
+                .map(member -> GroupMapper.toGroupMemberResponse(member, group.getOwnerId()))
                 .collect(Collectors.toList());
 
         String role = group.getOwnerId().equals(currentUserId) ? "owner" :
@@ -53,12 +53,12 @@ public class GroupMapper {
                 .build();
     }
 
-    public static GroupMemberResponse toGroupMemberResponse(User user) {
+    public static GroupMemberResponse toGroupMemberResponse(User user, Long ownerId) {
         return GroupMemberResponse.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .role(user.getRole())
+                .role(ownerId.equals(user.getId()) ? "owner" : "member")
                 .joinedAt(user.getCreatedAt())
                 .build();
     }

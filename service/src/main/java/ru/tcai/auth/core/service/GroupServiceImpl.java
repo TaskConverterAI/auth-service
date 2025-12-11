@@ -87,7 +87,7 @@ public class GroupServiceImpl implements GroupService {
         group.getMembers().add(user);
         groupDao.save(group);
 
-        return GroupMapper.toGroupMemberResponse(user);
+        return GroupMapper.toGroupMemberResponse(user, group.getOwnerId());
     }
 
     @Override
