@@ -13,7 +13,7 @@ import ru.tcai.auth.core.validation.UniqueUsername;
 public class RegistrationRequest {
 
     @NotBlank(message = "Username must not be blank")
-    @Size(max = 255, message = "Username must be at most 255 characters")
+    @Size(min = 3, max = 32, message = "Username must be 3-32 characters")
     @UniqueUsername
     String username;
 
