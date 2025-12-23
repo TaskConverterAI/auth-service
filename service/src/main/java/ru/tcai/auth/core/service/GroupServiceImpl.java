@@ -116,11 +116,15 @@ public class GroupServiceImpl implements GroupService {
         Group group = groupDao.findById(groupId)
                 .orElseThrow(() -> new AuthServiceException("Group not found", HttpStatus.NOT_FOUND));
 
-        User leavingUser = request != null && request.getTransferOwnershipTo() != null ?
-                userDao.findById(request.getTransferOwnershipTo())
+        User leavingUser = request != null && request.getId() != null ?
+                userDao.findById(request.getId())
                         .orElseThrow(() -> new AuthServiceException("Target user not found", HttpStatus.NOT_FOUND)) : null;
 
-        if (group.getOwnerId().equals(leavingUser != null ? leavingUser.getId() : null)) {
+        User accessorUser = request != null && request.getTransferOwnershipTo() != null ?
+                userDao.findById(request.getTransferOwnershipTo())
+                        .orElseThrow(() -> new AuthServiceException("Accessor user not found", HttpStatus.NOT_FOUND)) : null;
+
+        if (group.getOwnerId().equals(leavingUser != null ? leavingUser.getId() : null) && accessorUser == null ) {
             Set<User> eligible = group.getMembers().stream()
                     .filter(u -> !u.getId().equals(group.getOwnerId()))
                     .collect(Collectors.toSet());
@@ -134,6 +138,8 @@ public class GroupServiceImpl implements GroupService {
 
         } else {
             group.getMembers().removeIf(u -> u.getId().equals(leavingUser != null ? leavingUser.getId() : null));
+            if (group.getOwnerId().equals(leavingUser.getId()))
+                group.setOwnerId(accessorUser.getId());
             groupDao.save(group);
             return OwnershipTransferResponse.builder()
                     .message("Left group successfully")

@@ -6,6 +6,6 @@ import lombok.Value;
 @Value
 @Builder
 public class LeaveGroupRequest {
-
+    Long id;
     Long transferOwnershipTo;
 }
